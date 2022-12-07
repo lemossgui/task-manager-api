@@ -49,6 +49,6 @@ class SecurityConfiguration(
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-        http.addFilter(JwtAuthFilter(authenticationManager(), jwtUtil))
+        http.addFilter(JwtAuthenticationFilter(authenticationManager(), jwtUtil))
     }
 }

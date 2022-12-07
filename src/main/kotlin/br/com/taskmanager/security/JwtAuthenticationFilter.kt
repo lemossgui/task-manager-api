@@ -14,12 +14,10 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JwtAuthFilter(
+class JwtAuthenticationFilter(
         authenticationManager: AuthenticationManager,
         private val jwtUtil: JwtUtil,
-) : BasicAuthenticationFilter(
-        authenticationManager
-) {
+) : BasicAuthenticationFilter(authenticationManager) {
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         try {

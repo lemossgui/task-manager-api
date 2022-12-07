@@ -13,9 +13,15 @@ interface UserRepository : BaseRepository<UserEntity> {
             "AND e.isExcluded = false")
     fun findByIdentifierAndPassword(identifier: String, password: String): Optional<UserEntity>
 
-    @Query("SELECT e FROM UserEntity e WHERE e.username = :username AND e.isExcluded = false")
-    fun findByUsername(username: String): Optional<UserEntity>
+    @Query("SELECT COUNT(e) > 0 " +
+            "FROM UserEntity e " +
+            "WHERE e.username = :username " +
+            "AND e.isExcluded = false")
+    fun existsByUsername(username: String): Boolean
 
-    @Query("SELECT e FROM UserEntity e WHERE e.email = :email AND e.isExcluded = false")
-    fun findByEmail(email: String): Optional<UserEntity>
+    @Query("SELECT COUNT(e) > 0 " +
+            "FROM UserEntity e " +
+            "WHERE e.email = :email " +
+            "AND e.isExcluded = false")
+    fun existsByEmail(email: String): Boolean
 }

@@ -22,7 +22,7 @@ class PriorityController(
         val result = service.findAll()
         return ResponseModel(mapper.mapToDtoList(result))
                 .withHttpStatus(HttpStatus.OK)
-                .withMessage("Lista obtida com sucesso!")
+                .withMessage("Prioridades listadas com sucesso!")
                 .build()
     }
 }

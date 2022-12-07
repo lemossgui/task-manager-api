@@ -22,7 +22,6 @@ class AuthenticationServiceImpl(
                     id = user.id,
                     name = user.name,
             )
-
             return jwtUtil.generateToken(payloadToken)
         }
 
