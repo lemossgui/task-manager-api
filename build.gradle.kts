@@ -60,3 +60,7 @@ tasks.withType<KotlinCompile> {
 allOpen {
 	annotation("javax.persistence.Entity")
 }
+
+noArg {
+	annotation("br.com.taskmanager.utils.NoArgs")
+}
