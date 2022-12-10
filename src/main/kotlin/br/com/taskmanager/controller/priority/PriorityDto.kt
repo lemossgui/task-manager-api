@@ -6,4 +6,6 @@ import br.com.taskmanager.utils.NoArgs
 data class PriorityDto(
         var id: Long,
         var description: String,
+        var key: String,
+        var index: Int,
 )

@@ -9,6 +9,8 @@ import javax.persistence.Table
 @Table(name = "tb_priority")
 data class PriorityEntity(
         var description: String,
+        var key: String,
+        var index: Int,
 ) : AbstractEntity() {
 
     override fun equals(other: Any?): Boolean {

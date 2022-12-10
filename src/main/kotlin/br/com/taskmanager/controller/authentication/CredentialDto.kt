@@ -4,6 +4,6 @@ import br.com.taskmanager.utils.NoArgs
 
 @NoArgs
 data class CredentialDto(
-        var identifier: String,
+        var email: String,
         var password: String,
 )

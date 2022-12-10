@@ -4,8 +4,8 @@ import br.com.taskmanager.controller.exception.DuplicateEntityException
 import br.com.taskmanager.data.defaultCategory.DefaultCategoryRepository
 import br.com.taskmanager.data.user.UserEntity
 import br.com.taskmanager.data.user.UserRepository
-import br.com.taskmanager.data.userCategory.UserCategoryEntity
-import br.com.taskmanager.data.userCategory.UserCategoryRepository
+import br.com.taskmanager.data.category.CategoryEntity
+import br.com.taskmanager.data.category.CategoryRepository
 import br.com.taskmanager.utils.md5
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
@@ -14,7 +14,7 @@ import javax.transaction.Transactional
 class UserServiceImpl(
         private val repository: UserRepository,
         private val defaultCategoryRepository: DefaultCategoryRepository,
-        private val userCategoryRepository: UserCategoryRepository,
+        private val userCategoryRepository: CategoryRepository,
 ) : UserService {
 
     @Transactional
@@ -27,10 +27,6 @@ class UserServiceImpl(
     }
 
     fun validateToSave(entity: UserEntity) {
-        if (repository.existsByUsername(entity.username)) {
-            throw DuplicateEntityException("Já existe um usuário cadastrado com este username")
-        }
-
         if (repository.existsByEmail(entity.email)) {
             throw DuplicateEntityException("Já existe um usuário cadastrado com este e-mail")
         }
@@ -44,9 +40,9 @@ class UserServiceImpl(
         val defaultCategories = defaultCategoryRepository.findAll()
 
         val userCategories = defaultCategories.map {
-            UserCategoryEntity(
+            CategoryEntity(
                     description = it.description,
-                    color = it.color,
+                    colorKey = it.colorKey,
                     user = user,
             )
         }

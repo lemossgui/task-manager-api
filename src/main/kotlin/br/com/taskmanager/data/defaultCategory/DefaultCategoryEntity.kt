@@ -9,7 +9,7 @@ import javax.persistence.Table
 @Table(name = "tb_default_category")
 data class DefaultCategoryEntity(
         var description: String,
-        var color: String,
+        var colorKey: String,
 ) : AbstractEntity() {
 
     override fun equals(other: Any?): Boolean {

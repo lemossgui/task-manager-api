@@ -1,7 +1,7 @@
-package br.com.taskmanager.controller.userCategory
+package br.com.taskmanager.controller.category
 
 import br.com.taskmanager.response.ResponseModel
-import br.com.taskmanager.service.userCategory.UserCategoryService
+import br.com.taskmanager.service.category.CategoryService
 import io.swagger.annotations.Api
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.*
 
 @Api
 @RestController
-@RequestMapping("/user-category")
-class UserCategoryController(
-        private val service: UserCategoryService,
-        private val mapper: UserCategoryDtoMapper,
-        private val saveMapper: UserCategorySaveDtoMapper,
+@RequestMapping("/category")
+class CategoryController(
+        private val service: CategoryService,
+        private val mapper: CategoryDtoMapper,
+        private val saveMapper: CategorySaveDtoMapper,
 ) {
 
     @PostMapping
-    fun save(@RequestBody dto: UserCategorySaveDto): ResponseEntity<ResponseModel<Long>> {
+    fun save(@RequestBody dto: CategorySaveDto): ResponseEntity<ResponseModel<Long>> {
         val entity = saveMapper.mapToEntity(dto)
         val result = service.save(entity)
         return ResponseModel(result)
@@ -27,7 +27,7 @@ class UserCategoryController(
     }
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Long, @RequestBody dto: UserCategorySaveDto): ResponseEntity<ResponseModel<Long>> {
+    fun update(@PathVariable id: Long, @RequestBody dto: CategorySaveDto): ResponseEntity<ResponseModel<Long>> {
         val entity = saveMapper.mapToEntity(dto)
         val result = service.update(id, entity)
         return ResponseModel(result)
@@ -37,7 +37,7 @@ class UserCategoryController(
     }
 
     @GetMapping
-    fun findAll(): ResponseEntity<ResponseModel<List<UserCategoryDto>>> {
+    fun findAll(): ResponseEntity<ResponseModel<List<CategoryDto>>> {
         val result = service.findAll()
         return ResponseModel(mapper.mapToDtoList(result))
                 .withHttpStatus(HttpStatus.OK)

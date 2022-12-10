@@ -44,4 +44,3 @@ class ResponseModel<T> {
         return ResponseEntity.status(this.httpStatus).body(this)
     }
 }
-

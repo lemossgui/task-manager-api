@@ -19,7 +19,7 @@ class AuthenticationController(
 
     @PostMapping("/login")
     fun doLogin(@RequestBody dto: CredentialDto): ResponseEntity<ResponseModel<String>> {
-        val result = service.doLogin(dto.identifier, dto.password)
+        val result = service.doLogin(dto.email, dto.password)
         return ResponseModel(result)
                 .withHttpStatus(HttpStatus.OK)
                 .withMessage("Usuário autenticado com sucesso!")

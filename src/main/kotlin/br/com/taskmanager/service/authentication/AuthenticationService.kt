@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service
 
 @Service
 interface AuthenticationService {
-    fun doLogin(identifier: String, password: String): String
+    fun doLogin(email: String, password: String): String
 }

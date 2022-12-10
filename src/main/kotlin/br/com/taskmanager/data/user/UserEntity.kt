@@ -9,7 +9,6 @@ import javax.persistence.Table
 @Table(name = "tb_user")
 data class UserEntity(
         var name: String,
-        var username: String,
         var email: String,
         var password: String,
         var image: String? = null,

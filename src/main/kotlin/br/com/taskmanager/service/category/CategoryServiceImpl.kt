@@ -1,20 +1,20 @@
-package br.com.taskmanager.service.userCategory
+package br.com.taskmanager.service.category
 
 import br.com.taskmanager.controller.exception.DuplicateEntityException
 import br.com.taskmanager.controller.exception.NotFoundException
 import br.com.taskmanager.data.user.UserEntity
 import br.com.taskmanager.data.user.UserRepository
-import br.com.taskmanager.data.userCategory.UserCategoryEntity
-import br.com.taskmanager.data.userCategory.UserCategoryRepository
+import br.com.taskmanager.data.category.CategoryEntity
+import br.com.taskmanager.data.category.CategoryRepository
 import br.com.taskmanager.service.authenticationInfo.AuthenticationInfo
 import org.springframework.stereotype.Service
 
 @Service
-class UserCategoryServiceImpl(
-        private val repository: UserCategoryRepository,
+class CategoryServiceImpl(
+        private val repository: CategoryRepository,
         private val userRepository: UserRepository,
         private val authenticationInfo: AuthenticationInfo,
-) : UserCategoryService {
+) : CategoryService {
 
     private fun getUserId(): Long {
         return authenticationInfo.userId
@@ -24,14 +24,14 @@ class UserCategoryServiceImpl(
         return userRepository.getOne(getUserId())
     }
 
-    override fun save(entity: UserCategoryEntity): Long {
+    override fun save(entity: CategoryEntity): Long {
         validateToSave(entity)
         entity.also { it.user = getUser() }
         val savedEntity = repository.save(entity)
         return savedEntity.id
     }
 
-    override fun update(id: Long, entity: UserCategoryEntity): Long {
+    override fun update(id: Long, entity: CategoryEntity): Long {
         validateToUpdate(id, entity)
         entity.also {
             it.id = id
@@ -41,7 +41,7 @@ class UserCategoryServiceImpl(
         return savedEntity.id
     }
 
-    override fun findAll(): List<UserCategoryEntity> {
+    override fun findAll(): List<CategoryEntity> {
         val userId = authenticationInfo.userId
         return repository.findAllByUserId(userId)
     }
@@ -53,7 +53,7 @@ class UserCategoryServiceImpl(
         return savedEntity.id
     }
 
-    private fun findById(id: Long): UserCategoryEntity {
+    private fun findById(id: Long): CategoryEntity {
         val found = repository.findById(id)
         if (!found.isPresent) {
             throw NotFoundException("Categoria não encontrada")
@@ -61,18 +61,18 @@ class UserCategoryServiceImpl(
         return found.get()
     }
 
-    fun validateToSave(entity: UserCategoryEntity) {
+    fun validateToSave(entity: CategoryEntity) {
         if(repository.existsByUserIdAndDescription(getUserId(), entity.description)) {
             throw DuplicateEntityException("Já existe uma categoria com esta descrição")
         }
-        validateColorToSave(entity.color)
+        validateColorToSave(entity.colorKey)
     }
 
-    fun validateToUpdate(id: Long, entity: UserCategoryEntity) {
+    fun validateToUpdate(id: Long, entity: CategoryEntity) {
         if(repository.existsByIdDiffAndUserIdAndDescription(id, getUserId(), entity.description)) {
             throw DuplicateEntityException("Já existe uma categoria com esta descrição")
         }
-        validateColorToUpdate(id, entity.color)
+        validateColorToUpdate(id, entity.colorKey)
     }
 
     fun validateColorToSave(color: String) {

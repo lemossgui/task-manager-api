@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service
 
 @Service
 class AuthenticationServiceImpl(
-        private val repository: UserRepository,
+        private val userRepository: UserRepository,
         private val jwtUtil: JwtUtil,
 ) : AuthenticationService {
 
-    override fun doLogin(identifier: String, password: String): String {
-        val found = repository.findByIdentifierAndPassword(identifier, password.md5())
+    override fun doLogin(email: String, password: String): String {
+        val found = userRepository.findByEmailAndPassword(email, password.md5())
 
         if (found.isPresent) {
             val user = found.get()
