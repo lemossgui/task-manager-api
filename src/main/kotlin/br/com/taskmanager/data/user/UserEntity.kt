@@ -11,6 +11,7 @@ data class UserEntity(
         var name: String,
         var email: String,
         var password: String,
+        var notificationIsEnable: Boolean,
         var image: String? = null,
 ) : AbstractEntity() {
 

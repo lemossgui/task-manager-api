@@ -25,6 +25,6 @@ class AuthenticationServiceImpl(
             return jwtUtil.generateToken(payloadToken)
         }
 
-        throw NotFoundException("Usuário não encontrado")
+        throw NotFoundException("E-mail e/ou senha incorretos")
     }
 }

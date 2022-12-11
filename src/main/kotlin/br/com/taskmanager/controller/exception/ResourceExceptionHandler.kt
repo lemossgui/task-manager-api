@@ -52,4 +52,9 @@ class ResourceExceptionHandler {
     fun duplicateEntityException(e: DuplicateEntityException, request: HttpServletRequest): ResponseEntity<ResponseModel<String>>? {
         return getResponseFailure(HttpStatus.CONFLICT, e.message.toString())
     }
+
+    @ExceptionHandler(BadRequestException::class)
+    fun badRequestException(e: BadRequestException, request: HttpServletRequest): ResponseEntity<ResponseModel<String>>? {
+        return getResponseFailure(HttpStatus.BAD_REQUEST, e.message.toString())
+    }
 }
